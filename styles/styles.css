@@ -8,16 +8,21 @@ body {
     display: inline-block;
     margin: 10px;
     border: 1px black solid;
-    width: 300px;
+    width: 350px;
     height: 150px;
 }
 
-.coinBlock>div,
+.coinBlock>h5,
+h6,
 button {
     margin-left: 20px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .coinContainer {
     margin-top: 5rem;
+}
+
+h5 {
+    font-size: 18px;
 }

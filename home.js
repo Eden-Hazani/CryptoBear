@@ -1,18 +1,17 @@
 $(function() {
-    $(document).ready(() => {
+    $('#homeLink').click(() => {
         getCoins()
             .then(coinList => {
                 $('.coinContainer').empty();
                 for (coin in coinList) {
                     if (coin < 100) {
-                        console.log(coinList[coin].name)
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left'>
-                                <div>${coinList[coin].name}</div>
-                                <div>${coinList[coin].symbol}</div>
-                                <button>More Info</button>
-                            </div>
-                        `);
+                        <div class='coinBlock text-left card'>
+                            <h5 class='card-title'>${coinList[coin].name}</h5>
+                            <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                            <button class='btn btn-primary'>More Info</button>
+                        </div>
+                    `);
                     }
                 }
             })
@@ -24,4 +23,7 @@ $(function() {
             }))
 
     });
+
+
+
 });
