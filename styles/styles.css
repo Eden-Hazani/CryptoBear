@@ -6,10 +6,10 @@ body {
 
 .coinBlock {
     display: inline-block;
-    margin: 10px;
+    margin: 20px;
     border: 1px black solid;
-    width: 350px;
-    height: 150px;
+    width: 420px;
+    height: 200px;
 }
 
 .coinBlock>h5,
@@ -19,10 +19,25 @@ button {
     margin-top: 20px;
 }
 
+.coinBlock>h5{
+    display: inline-block;
+}
+
 .coinContainer {
     margin-top: 5rem;
 }
 
 h5 {
     font-size: 18px;
+}
+
+.nav-item>a{
+    margin-left: 2rem;
+    color: black;
+    font-size: 20px;
+}
+
+.toggle{
+    display: inline-block;
+
 }
