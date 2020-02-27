@@ -1,4 +1,6 @@
 $(function() {
+
+    // shows all coins on home click
     $('#homeLink').click(() => {
         getCoins()
             .then(coinList => {
@@ -6,13 +8,16 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card'>
-                            <h5 class='card-title'>${coinList[coin].name}</h5>
-                            <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                            <button class='btn btn-primary'>More Info</button>
-                        </div>
-                    `);
+                            <div class='coinBlock text-left card'>
+                                <h5 class='card-title'>${coinList[coin].name}</h5>
+                                <input type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select">
+                                <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                                <button class='btn btn-primary'>More Info</button>
+                            </div>
+                        `);
                     }
+                    $('input[type="checkbox"]').bootstrapToggle();
+
                 }
             })
             .catch(error => Swal.fire({

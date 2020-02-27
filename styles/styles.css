@@ -5,6 +5,7 @@ body {
 }
 
 .coinBlock {
+    position: relative;
     display: inline-block;
     margin: 20px;
     border: 1px black solid;
@@ -19,7 +20,7 @@ button {
     margin-top: 20px;
 }
 
-.coinBlock>h5{
+.coinBlock>h5 {
     display: inline-block;
 }
 
@@ -31,13 +32,24 @@ h5 {
     font-size: 18px;
 }
 
-.nav-item>a{
+.nav-item>a {
     margin-left: 2rem;
     color: black;
     font-size: 20px;
 }
 
-.toggle{
+.toggle {
     display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 40%;
+}
 
+.siteLogo>img {
+    width: 150px;
+    display: inline-block;
+}
+
+.siteHeadline {
+    display: inline-block;
 }
