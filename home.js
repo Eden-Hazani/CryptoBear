@@ -12,7 +12,7 @@ $(function() {
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select">
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                                <button class='btn btn-primary'>More Info</button>
+                                <button id='${coinList[coin].name}' class='btn btn-primary moreInfoButton'>More Info</button>
                             </div>
                         `);
                     }

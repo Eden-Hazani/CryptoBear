@@ -9,6 +9,17 @@ $(function() {
             });
         })
     }
+    // gets coin info by using argument
+    window.getMoreInfo = function(coin){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                url: `https://api.coingecko.com/api/v3/coins/${coin}`,
+                success: information => resolve(information),
+                error: error => reject(error) 
+            });
+        })
+    }
+
 
     // every new page load show all coins to user 
     $(document).ready(() => {
@@ -22,7 +33,9 @@ $(function() {
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select">
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                                <button class='btn btn-primary'>More Info</button>
+                                <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">More Info</button>
+                                <div class="collapse collapse${coinList[coin].id}" id="collapseExample">
+                                </div
                             </div>
                         `);
                     }
@@ -37,6 +50,28 @@ $(function() {
             }))
 
     });
+
+    // click more info to get more information
+    $(document).on('click', '.moreInfoButton', function(){ 
+            console.log(this)
+            getMoreInfo(this.id)
+            .then(information=>{
+                $(`.collapse${this.id}`).collapse()
+                $(`.collapse${this.id}`).html(`
+                    <div class="card card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus 
+                    </div>
+                `);
+            })     
+   });
+
+   
+
+
+
+
+
+
     // search for coins
     // shows error when user types the wrong coin name
     // shows error when no input is entered into search field
@@ -63,7 +98,7 @@ $(function() {
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select">
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                                <button id='moreInfoButton' class='btn btn-primary'>More Info</button>
+                                <button id='${coinList[coin].name}' class='btn btn-primary moreInfoButton'>More Info</button>
                             </div>
                         `);
                         $('input[type="checkbox"]').bootstrapToggle();
@@ -88,8 +123,6 @@ $(function() {
                 confirmButtonText: 'OK'
             }))
     });
-
-
 
 
 
