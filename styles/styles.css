@@ -5,12 +5,11 @@ body {
 }
 
 .coinBlock {
-    position: relative;
+    height: 100vh;
     display: inline-block;
     margin: 20px;
-    border: 1px black solid;
     width: 420px;
-    height: 200px;
+    height: 300px;
 }
 
 .coinBlock>h5,
@@ -39,10 +38,10 @@ h5 {
 }
 
 .toggle {
-    display: inline-block;
     position: absolute;
+    display: inline-block;
     right: 20px;
-    top: 40%;
+    top: 20%;
 }
 
 .siteLogo>img {
@@ -52,4 +51,19 @@ h5 {
 
 .siteHeadline {
     display: inline-block;
+}
+
+.collapsedContent {
+    display: inline-block;
+    width: 350px;
+}
+
+.collapsedContent>img {
+    float: right;
+}
+
+.absoluteCollapse {
+    margin-left: 5%;
+    margin-top: 5%;
+    position: absolute;
 }
