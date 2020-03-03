@@ -1,5 +1,6 @@
 $(function() {
     let chosenCoins = []
+    let chosenCoinsModal = []
         // Gets cryptocurr info from ajax call. 
     window.getCoins = function() {
             return new Promise((resolve, reject) => {
@@ -80,39 +81,43 @@ $(function() {
 
     });
 
-    function showLoaderGif(id) {
+    window.showLoaderGif = function(id){
         $('#loaderGif' + id).css('display', 'block');
     }
 
-    function hideLoaderGif(id) {
+    window.hideLoaderGif = function(id){
         $('#loaderGif' + id).css('display', 'none');
+
     }
 
-    // adds coins into array
+
+    // adds coins into array chosenCoins
     $(document).on('click', '.toggle', function() {
         const toggleId = $(this).children("input").attr("id").replace('toggler', '');
         if ($(this).hasClass('off')) {
+            if(chosenCoins.includes(toggleId)){
+                const index = chosenCoins.indexOf(toggleId);
+                chosenCoins.splice(index, 1)
+            }
             if (chosenCoins.length > 4) {
-                console.log(chosenCoins)
                 showModal(chosenCoins)
                 $('#insideModal').modal('show');
+                chosenCoinsModal = Array.from(chosenCoins)
                 return;
             }
-            const index = chosenCoins.indexOf(toggleId);
-            chosenCoins.splice(index, 1)
         } else {
             if (chosenCoins.length > 4) {
                 showModal(chosenCoins)
                 $('#insideModal').modal('show');
                 $(this).addClass('off');
+                chosenCoinsModal = Array.from(chosenCoins)
                 return;
             }
             chosenCoins.push(toggleId)
         }
     });
 
-    // Modal window
-
+    // Modal window create
     function showModal(coinArray) {
         $('.modalWindow').html(
             `
@@ -126,18 +131,31 @@ $(function() {
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class = 'modalToggleBox card card-body'>
+                        <lable>${coinArray[0]}</lable>
+                        <input class='modalToggle' id='toggler${coinArray[0]}' checked type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                    </div>
+                    <div class = 'modalToggleBox card card-body'>
+                        <lable>${coinArray[1]}</lable>
+                         <input class='modalToggle' id='toggler${coinArray[1]}' checked type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                    </div>
+                    <div class = 'modalToggleBox card card-body'>
+                         <lable>${coinArray[2]}</lable>
+                         <input class='modalToggle' id='toggler${coinArray[2]}' checked type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                    </div>
+                    <div class = 'modalToggleBox card card-body'>
+                        <lable>${coinArray[3]}</lable>
+                        <input class='modalToggle' id='toggler${coinArray[3]}' checked type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                    </div>
+                    <div class = 'modalToggleBox card card-body'>
+                        <lable>${coinArray[4]}</lable>
+                        <input class='modalToggle' id='toggler${coinArray[4]}' checked type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                    </div>
                     
-                <input id='toggler${coinArray[0]}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                <input id='toggler${coinArray[1]}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                <input id='toggler${coinArray[2]}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                <input id='toggler${coinArray[3]}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                <input id='toggler${coinArray[4]}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button id='modalCloseButton' type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id='modalSaveButton' type="button" class="btn btn-primary">Save changes</button>
                 </div>
                 </div>
             </div>
@@ -147,6 +165,31 @@ $(function() {
         $('input[type="checkbox"]').bootstrapToggle();
     }
 
+    
+    $(document).on('click', '#modalCloseButton', function() {
+        for (let i = 0; i < chosenCoinsModal.length; i++){
+            chosenCoins[i] = chosenCoinsModal[i]
+        }
+    });
+
+    $(document).on('click', '#modalSaveButton', function() {
+        
+        for(item of chosenCoinsModal){
+            let togglerPerant = $(`#toggler${item}`).closest('div');
+            console.log(togglerPerant)
+
+            if($(togglerPerant).is(':checked')){
+                console.log(item +"Checkbox is un.");
+            }else{
+                console.log(item +'Checkbox is checked')
+            }
+        }  
+    });
+
+
+
+
+  
 
 
 
@@ -175,9 +218,16 @@ $(function() {
                         $('.coinContainer').append(`
                             <div class='coinBlock text-left card'>
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
-                                <input type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select">
+                                <input id='toggler${coinList[coin].name}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                                <button id='${coinList[coin].name}' class='btn btn-primary moreInfoButton'>More Info</button>
+                                <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">More Info</button>
+                                <div class='absoluteCollapse'>
+                                    <div class='collapse' id="collapseExample${coinList[coin].id}">
+                                    <img  id="loaderGif${coinList[coin].id}" style="display:none" src="http://chimplyimage.appspot.com/images/samples/classic-spinner/animatedCircle.gif" />
+                                        <div class='collapseWrapper'>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         `);
                         $('input[type="checkbox"]').bootstrapToggle();

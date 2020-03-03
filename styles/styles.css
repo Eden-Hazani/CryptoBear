@@ -45,7 +45,7 @@ h5 {
 }
 
 .siteLogo>img {
-    width: 150px;
+    width: 120px;
     display: inline-block;
 }
 
@@ -66,4 +66,11 @@ h5 {
     margin-left: 5%;
     margin-top: 5%;
     position: absolute;
+}
+
+.modalToggleBox{
+    display: inline-block;
+    margin: 10px;
+    width: 420px;
+    height: 120px;
 }
