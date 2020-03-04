@@ -33,14 +33,14 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card'>
+                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].id}'>
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
-                                <input id='toggler${coinList[coin].name}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                                <input id='toggler${coinList[coin].id}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
                                 <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">More Info</button>
                                 <div class='absoluteCollapse'>
                                     <div class='collapse' id="collapseExample${coinList[coin].id}">
-                                    <img  id="loaderGif${coinList[coin].id}" style="display:none" src="http://chimplyimage.appspot.com/images/samples/classic-spinner/animatedCircle.gif" />
+                                    <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
                                         <div class='collapseWrapper'>
                                         </div>
                                     </div>
@@ -173,19 +173,20 @@ $(function() {
     });
 
     $(document).on('click', '#modalSaveButton', function() {
-        
-        for(item of chosenCoinsModal){
-            let togglerPerant = $(`#toggler${item}`).closest('div');
-            console.log(togglerPerant)
+        displayChosenCoin()
+        $('#insideModal').modal('hide');
 
-            if($(togglerPerant).is(':checked')){
-                console.log(item +"Checkbox is un.");
-            }else{
-                console.log(item +'Checkbox is checked')
-            }
-        }  
     });
-
+    function displayChosenCoin() {
+        $(".coinBlock > .toggle").removeClass("btn-primary");
+        $(".coinBlock > .toggle").addClass("btn-light");
+        $(".coinBlock > .toggle").addClass("off");
+        $(".coinBlock > .toggle>input").prop("checked", false);
+        for (const chosenCoin of chosenCoins) {
+            console.log(chosenCoin);
+            $(`.coinBlockOf${chosenCoin}>div`).removeClass("off");
+        }
+    }
 
 
 

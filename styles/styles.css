@@ -4,6 +4,15 @@ body {
     margin: 0;
 }
 
+
+
+.backgroundLayerVideo{
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
 .coinBlock {
     height: 100vh;
     display: inline-block;
@@ -72,5 +81,10 @@ h5 {
     display: inline-block;
     margin: 10px;
     width: 420px;
+    height: 120px;
+}
+
+.loaderGif{
+    width: 120px;
     height: 120px;
 }
