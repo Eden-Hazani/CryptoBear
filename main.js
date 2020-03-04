@@ -1,6 +1,7 @@
 $(function() {
     let chosenCoins = []
     let chosenCoinsModal = []
+    let savedInfo = []
         // Gets cryptocurr info from ajax call. 
     window.getCoins = function() {
             return new Promise((resolve, reject) => {
@@ -63,16 +64,25 @@ $(function() {
     // on click insert info into collapse
     $(document).on('click', '.moreInfoButton', async function() {
         try {
+            
+            if(localStorage.getItem(this.id)){
+                const json = localStorage.getItem(this.id).replace(/[{}]/g, '').replace(/\\n/g, '').replace('","expiry":1583332377667','').replace('"value":"','');
+                $(`#collapseExample${this.id}>.collapseWrapper`).html(json);
+                return
+            }
             showLoaderGif(this.id)
             const coinObj = await getMoreInfo(this.id);
-            $(`#collapseExample${this.id}>.collapseWrapper`).html(`
+            const infoContant = `
             <div class='collapsedContent card card-body '>
                 <div>US Dollar: ${coinObj.market_data.current_price.usd}</div>
                 <div>Euro: ${coinObj.market_data.current_price.eur}</div>
                 <div>NIS: ${coinObj.market_data.current_price.ils}</div>
                 <img src='${coinObj.image.thumb}'>
             </div>
-            `);
+            `
+            $(`#collapseExample${this.id}>.collapseWrapper`).html(infoContant);
+            setLocalWithExpiry(this.id,infoContant,120000)
+            savedInfo.push(this.id)
         } catch (err) {
             alert(JSON.stringify(err));
         } finally {
@@ -80,6 +90,43 @@ $(function() {
         }
 
     });
+
+    function setLocalWithExpiry(key, value, ttl) {
+        const now = new Date()
+        // `item` is an object which contains the original value
+        // as well as the time when it's supposed to expire
+          const item = {
+              value: value,
+              expiry: now.getTime() + ttl
+          }
+          console.log(item)
+          localStorage.setItem(key, JSON.stringify(item))
+    }
+
+    function Expiry() {
+        for(infoKey of savedInfo){
+            console.log(infoKey)
+            const itemStr = localStorage.getItem(infoKey)
+            // if item not found return null
+            if (!itemStr) {
+                return null
+            }
+            const item = JSON.parse(itemStr)
+            const now = new Date()
+            // compare the expiry time of the item with the current time
+            if (now.getTime() > item.expiry) {
+            // If the item is expired, delete the item from storage
+            localStorage.removeItem(infoKey)
+            }
+        }
+    }
+
+    setInterval(() => {
+        Expiry()
+    }, 1000);
+
+
+
 
     window.showLoaderGif = function(id){
         $('#loaderGif' + id).css('display', 'block');
@@ -89,6 +136,8 @@ $(function() {
         $('#loaderGif' + id).css('display', 'none');
 
     }
+
+    
 
 
     // adds coins into array chosenCoins
