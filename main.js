@@ -64,10 +64,13 @@ $(function() {
     // on click insert info into collapse
     $(document).on('click', '.moreInfoButton', async function() {
         try {
-            
+            if($(`#${this.id}`).hasClass('collapsed')){
+                return null
+            }
             if(localStorage.getItem(this.id)){
-                const json = localStorage.getItem(this.id).replace(/[{}]/g, '').replace(/\\n/g, '').replace('","expiry":1583332377667','').replace('"value":"','');
-                $(`#collapseExample${this.id}>.collapseWrapper`).html(json);
+                const json = localStorage.getItem(this.id).replace(/[{}]/g, '').replace(/\\n/g, '').replace('"value":"','').replace('","expiry','');
+                const afterWithout = json.substr(0, json.lastIndexOf('"'));
+                $(`#collapseExample${this.id}>.collapseWrapper`).html(afterWithout);
                 return
             }
             showLoaderGif(this.id)
@@ -99,13 +102,11 @@ $(function() {
               value: value,
               expiry: now.getTime() + ttl
           }
-          console.log(item)
           localStorage.setItem(key, JSON.stringify(item))
     }
 
     function Expiry() {
         for(infoKey of savedInfo){
-            console.log(infoKey)
             const itemStr = localStorage.getItem(infoKey)
             // if item not found return null
             if (!itemStr) {
