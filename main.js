@@ -22,6 +22,10 @@ $(function() {
             });
         })
     }
+    window.returnCoinList = function() {
+
+        return chosenCoins
+    }
 
 
 
@@ -34,9 +38,9 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].id}'>
+                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'>
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
-                                <input id='toggler${coinList[coin].id}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                                <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
                                 <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">More Info</button>
                                 <div class='absoluteCollapse'>
@@ -64,11 +68,11 @@ $(function() {
     // on click insert info into collapse
     $(document).on('click', '.moreInfoButton', async function() {
         try {
-            if($(`#${this.id}`).hasClass('collapsed')){
+            if ($(`#${this.id}`).hasClass('collapsed')) {
                 return null
             }
-            if(localStorage.getItem(this.id)){
-                const json = localStorage.getItem(this.id).replace(/[{}]/g, '').replace(/\\n/g, '').replace('"value":"','').replace('","expiry','');
+            if (localStorage.getItem(this.id)) {
+                const json = localStorage.getItem(this.id).replace(/[{}]/g, '').replace(/\\n/g, '').replace('"value":"', '').replace('","expiry', '');
                 const afterWithout = json.substr(0, json.lastIndexOf('"'));
                 $(`#collapseExample${this.id}>.collapseWrapper`).html(afterWithout);
                 return
@@ -84,7 +88,7 @@ $(function() {
             </div>
             `
             $(`#collapseExample${this.id}>.collapseWrapper`).html(infoContant);
-            setLocalWithExpiry(this.id,infoContant,120000)
+            setLocalWithExpiry(this.id, infoContant, 120000)
             savedInfo.push(this.id)
         } catch (err) {
             alert(JSON.stringify(err));
@@ -96,28 +100,28 @@ $(function() {
 
     function setLocalWithExpiry(key, value, ttl) {
         const now = new Date()
-        // `item` is an object which contains the original value
-        // as well as the time when it's supposed to expire
-          const item = {
-              value: value,
-              expiry: now.getTime() + ttl
-          }
-          localStorage.setItem(key, JSON.stringify(item))
+            // `item` is an object which contains the original value
+            // as well as the time when it's supposed to expire
+        const item = {
+            value: value,
+            expiry: now.getTime() + ttl
+        }
+        localStorage.setItem(key, JSON.stringify(item))
     }
 
     function Expiry() {
-        for(infoKey of savedInfo){
+        for (infoKey of savedInfo) {
             const itemStr = localStorage.getItem(infoKey)
-            // if item not found return null
+                // if item not found return null
             if (!itemStr) {
                 return null
             }
             const item = JSON.parse(itemStr)
             const now = new Date()
-            // compare the expiry time of the item with the current time
+                // compare the expiry time of the item with the current time
             if (now.getTime() > item.expiry) {
-            // If the item is expired, delete the item from storage
-            localStorage.removeItem(infoKey)
+                // If the item is expired, delete the item from storage
+                localStorage.removeItem(infoKey)
             }
         }
     }
@@ -129,23 +133,23 @@ $(function() {
 
 
 
-    window.showLoaderGif = function(id){
+    window.showLoaderGif = function(id) {
         $('#loaderGif' + id).css('display', 'block');
     }
 
-    window.hideLoaderGif = function(id){
+    window.hideLoaderGif = function(id) {
         $('#loaderGif' + id).css('display', 'none');
 
     }
 
-    
+
 
 
     // adds coins into array chosenCoins
     $(document).on('click', '.toggle', function() {
         const toggleId = $(this).children("input").attr("id").replace('toggler', '');
         if ($(this).hasClass('off')) {
-            if(chosenCoins.includes(toggleId)){
+            if (chosenCoins.includes(toggleId)) {
                 const index = chosenCoins.indexOf(toggleId);
                 chosenCoins.splice(index, 1)
             }
@@ -215,9 +219,9 @@ $(function() {
         $('input[type="checkbox"]').bootstrapToggle();
     }
 
-    
+
     $(document).on('click', '#modalCloseButton', function() {
-        for (let i = 0; i < chosenCoinsModal.length; i++){
+        for (let i = 0; i < chosenCoinsModal.length; i++) {
             chosenCoins[i] = chosenCoinsModal[i]
         }
     });
@@ -227,6 +231,7 @@ $(function() {
         $('#insideModal').modal('hide');
 
     });
+
     function displayChosenCoin() {
         $(".coinBlock > .toggle").removeClass("btn-primary");
         $(".coinBlock > .toggle").addClass("btn-light");
@@ -240,7 +245,7 @@ $(function() {
 
 
 
-  
+
 
 
 
