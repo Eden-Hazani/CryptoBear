@@ -1,76 +1,57 @@
 $(function() {
     const coinList = returnCoinList();
-
-    function chart() {
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title: {
-                text: "Multi-Series Line Chart"
-            },
-            data: [{
-                    type: "line",
-                    dataPoints: [
-                        { x: 10, y: 21 },
-                        { x: 20, y: 25 },
-                        { x: 30, y: 20 },
-                        { x: 40, y: 25 },
-                        { x: 50, y: 27 },
-                        { x: 60, y: 28 },
-                        { x: 70, y: 28 },
-                        { x: 80, y: 24 },
-                        { x: 90, y: 26 }
-
-                    ]
+function chart(){
+    let data = [{y : 0}];
+    let data2 = [{y : 10}];
+	var chart = new CanvasJS.Chart("chartContainer", {
+			title : {
+				text : "Dynamic Data"
+			},
+            data: [
+                {        
+                  type: "spline",
+                  dataPoints: data
                 },
-                {
-                    type: "line",
-                    dataPoints: [
-                        { x: 10, y: 31 },
-                        { x: 20, y: 35 },
-                        { x: 30, y: 30 },
-                        { x: 40, y: 35 },
-                        { x: 50, y: 35 },
-                        { x: 60, y: 38 },
-                        { x: 70, y: 38 },
-                        { x: 80, y: 34 },
-                        { x: 90, y: 44 }
-
-                    ]
+                  {        
+                  type: "spline",
+                  dataPoints: data2
                 },
-                {
-                    type: "line",
-                    dataPoints: [
-                        { x: 10, y: 45 },
-                        { x: 20, y: 50 },
-                        { x: 30, y: 40 },
-                        { x: 40, y: 45 },
-                        { x: 50, y: 45 },
-                        { x: 60, y: 48 },
-                        { x: 70, y: 43 },
-                        { x: 80, y: 41 },
-                        { x: 90, y: 28 }
-
-                    ]
+                  {        
+                  type: "spline",
+                  dataPoints: data
                 },
-                {
-                    type: "line",
-                    dataPoints: [
-                        { x: 10, y: 71 },
-                        { x: 20, y: 55 },
-                        { x: 30, y: 50 },
-                        { x: 40, y: 65 },
-                        { x: 50, y: 95 },
-                        { x: 60, y: 68 },
-                        { x: 70, y: 28 },
-                        { x: 80, y: 34 },
-                        { x: 90, y: 14 }
-
-                    ]
+                  {        
+                  type: "spline",
+                  dataPoints: data
                 }
             ]
-        });
+		});
 
-        chart.render();
-    }
+	chart.render();
+	
+	var yVal = 15, updateCount = 0;
+	var updateChart = function () {
+
+		yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
+      	updateCount++;
+		
+		data.push({
+			y : yVal
+		});
+		data2.push({
+			y : yVal
+		});
+      	
+        chart.options.title.text = "Update " + updateCount;
+		chart.render();    
+		
+    };
+    setInterval(function(){updateChart()}, 1000);
+
+}
+
+
+    
 
     function getChart(coins) {
         return new Promise((resolve, reject) => {
