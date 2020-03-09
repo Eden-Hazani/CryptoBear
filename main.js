@@ -23,10 +23,9 @@ $(function() {
         })
     }
     window.returnCoinList = function() {
-
+        console.log(chosenCoins)
         return chosenCoins
     }
-
 
 
 
@@ -38,7 +37,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="fade-up" >
+                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -62,7 +61,47 @@ $(function() {
                 icon: 'error',
                 confirmButtonText: 'OK'
             }))
-            .finally(()=> hideMainGif())
+            .finally(() => hideMainGif())
+
+    });
+
+    // shows all coins on home click
+    $('#homeLink').click(() => {
+        getCoins()
+            .then(coinList => {
+                $('.coinContainer').empty();
+                showMainGif()
+                for (coin in coinList) {
+                    if (coin < 100) {
+                        $('.coinContainer').append(`
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
+                            <h5 class='card-title'>${coinList[coin].name}</h5>
+                            <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                            <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                            <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">More Info</button>
+                            <div class='absoluteCollapse'>
+                                <div class='collapse' id="collapseExample${coinList[coin].id}">
+                                    <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
+                                    <div class='collapseWrapper'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `);
+                    }
+                    $('input[type="checkbox"]').bootstrapToggle();
+                }
+            })
+            .catch(error => Swal.fire({
+                title: 'Error!',
+                text: 'Something Went Wrong',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }))
+            .finally(() => {
+                hideMainGif()
+                displayChosenCoinHoemButton()
+            })
 
     });
 
@@ -131,10 +170,10 @@ $(function() {
         Expiry()
     }, 1000);
 
-    window.showMainGif = function(){
+    window.showMainGif = function() {
         $('.mainLoaderGif').css('display', 'block');
     }
-    window.hideMainGif = function(){
+    window.hideMainGif = function() {
         $('.mainLoaderGif').css('display', 'none');
     }
 
@@ -154,6 +193,7 @@ $(function() {
     // adds coins into array chosenCoins
     $(document).on('click', '.toggle', function() {
         const toggleId = $(this).children("input").attr("id").replace('toggler', '');
+        console.log('toogleid ' + toggleId)
         if ($(this).hasClass('off')) {
             if (chosenCoins.includes(toggleId)) {
                 const index = chosenCoins.indexOf(toggleId);
@@ -174,6 +214,7 @@ $(function() {
                 return;
             }
             chosenCoins.push(toggleId)
+            console.log(chosenCoins)
         }
     });
 
@@ -238,6 +279,7 @@ $(function() {
 
     });
 
+    // displays toggle for load
     function displayChosenCoin() {
         $(".coinBlock > .toggle").removeClass("btn-primary");
         $(".coinBlock > .toggle").addClass("btn-light");
@@ -249,9 +291,15 @@ $(function() {
         }
     }
 
-
-
-
+    // displays toggles for home
+    function displayChosenCoinHoemButton() {
+        $(".coinBlock > .toggle>input").prop("checked", false);
+        for (const chosenCoin of chosenCoins) {
+            console.log(chosenCoin);
+            $(`.coinBlockOf${chosenCoin}>div>input`).prop("checked", true);
+            $(`.coinBlockOf${chosenCoin}>div`).removeClass("off");
+        }
+    }
 
 
 
@@ -278,19 +326,19 @@ $(function() {
                         flag = true;
                         $('.coinContainer').empty();
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card'>
-                                <h5 class='card-title'>${coinList[coin].name}</h5>
-                                <input id='toggler${coinList[coin].name}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                                <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                                <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">More Info</button>
-                                <div class='absoluteCollapse'>
-                                    <div class='collapse' id="collapseExample${coinList[coin].id}">
-                                    <img  id="loaderGif${coinList[coin].id}" style="display:none" src="http://chimplyimage.appspot.com/images/samples/classic-spinner/animatedCircle.gif" />
-                                        <div class='collapseWrapper'>
-                                        </div>
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
+                            <h5 class='card-title'>${coinList[coin].name}</h5>
+                            <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                            <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                            <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">More Info</button>
+                            <div class='absoluteCollapse'>
+                                <div class='collapse' id="collapseExample${coinList[coin].id}">
+                                    <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
+                                    <div class='collapseWrapper'>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         `);
                         $('input[type="checkbox"]').bootstrapToggle();
                         break
@@ -313,7 +361,10 @@ $(function() {
                 icon: 'error',
                 confirmButtonText: 'OK'
             }))
+            .finally(() => displayChosenCoin())
     });
+
+
 
 
 
