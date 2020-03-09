@@ -5,6 +5,7 @@ $(function() {
         getCoins()
             .then(coinList => {
                 $('.coinContainer').empty();
+                showMainGif()
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
@@ -33,6 +34,7 @@ $(function() {
                 icon: 'error',
                 confirmButtonText: 'OK'
             }))
+            .finally(()=> hideMainGif())
 
     });
 

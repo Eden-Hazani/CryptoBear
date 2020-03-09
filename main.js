@@ -38,7 +38,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'>
+                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="fade-up" >
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -62,6 +62,7 @@ $(function() {
                 icon: 'error',
                 confirmButtonText: 'OK'
             }))
+            .finally(()=> hideMainGif())
 
     });
 
@@ -81,9 +82,9 @@ $(function() {
             const coinObj = await getMoreInfo(this.id);
             const infoContant = `
             <div class='collapsedContent card card-body '>
-                <div>US Dollar: ${coinObj.market_data.current_price.usd}</div>
-                <div>Euro: ${coinObj.market_data.current_price.eur}</div>
-                <div>NIS: ${coinObj.market_data.current_price.ils}</div>
+                <div>US Dollar: ${coinObj.market_data.current_price.usd} &#36</div>
+                <div>Euro: ${coinObj.market_data.current_price.eur} &#8364</div>
+                <div>NIS: ${coinObj.market_data.current_price.ils} &#8362</div>
                 <img src='${coinObj.image.thumb}'>
             </div>
             `
@@ -130,7 +131,12 @@ $(function() {
         Expiry()
     }, 1000);
 
-
+    window.showMainGif = function(){
+        $('.mainLoaderGif').css('display', 'block');
+    }
+    window.hideMainGif = function(){
+        $('.mainLoaderGif').css('display', 'none');
+    }
 
 
     window.showLoaderGif = function(id) {
