@@ -1,38 +1,85 @@
 $(function() {
-    let coinsWorth = [null, null, null, null, null];
+    let coinsWorthShow = [null, null, null, null, null];
+    let coinsWorthUSD = [null, null, null, null, null];
+    let coinsWorthEUR = [null, null, null, null, null];
+    let legendCoins = [false,false,false,false,false];
+    let priceVar = 'USD';
 
-
-
+    $(document).on('click', '.coinContainer>.toggle', function(){
+        if($(this).hasClass('off')){
+            let coinIndex = 0;
+            for(let worth of coinsWorthUSD){
+                coinsWorthShow.splice(coinIndex, 1, worth)
+                coinIndex++;
+                priceVar = 'USD'
+                chart()
+            }
+        }else{
+            let coinIndex = 0;
+            for(let worth of coinsWorthEUR){
+                coinsWorthShow.splice(coinIndex, 1, worth)
+                coinIndex++;
+                priceVar = 'EUR'
+                chart()
+            }
+        }
+    });
 
     function chart() {
-        let data1 = [{ y: coinsWorth[0] }];
-        let data2 = [{ y: coinsWorth[1] }];
-        let data3 = [{ y: coinsWorth[2] }];
-        let data4 = [{ y: coinsWorth[3] }];
-        let data5 = [{ y: coinsWorth[4] }];
+        let coinList = returnCoinList();
+        let legendIndex =0 ;
+        for(let coin in coinList){
+            if(coin != ''){
+                legendCoins.splice(legendIndex, 1, true)
+            }
+            legendIndex++;
+        }
+        let data1 = [{x:new Date(), y: coinsWorthShow[0] }];
+        let data2 = [{x:new Date(), y: coinsWorthShow[1] }];
+        let data3 = [{x:new Date(), y: coinsWorthShow[2] }];
+        let data4 = [{x:new Date(), y: coinsWorthShow[3] }];
+        let data5 = [{x:new Date(), y: coinsWorthShow[4] }];
         var chart = new CanvasJS.Chart("chartContainer", {
             title: {
-                text: "Dynamic Data"
+                text: "Crypto Chart " +priceVar + ' ' + new Date().toLocaleTimeString()
+            },
+            axisX:{
+                title: "Time Line",
+                gridThickness: 2
+            },
+            axisY: {
+                title: "Price in " + priceVar
             },
             data: [{
+                    showInLegend: legendCoins[0], 
                     type: "spline",
-                    dataPoints: data1
+                    dataPoints: data1,
+                    legendText: coinList[0],
                 },
                 {
+                    showInLegend: legendCoins[1], 
                     type: "spline",
-                    dataPoints: data2
+                    dataPoints: data2,
+                    legendText: coinList[1],
                 },
                 {
+                    showInLegend: legendCoins[2], 
                     type: "spline",
-                    dataPoints: data3
+                    dataPoints: data3,
+                    legendText: coinList[2]
+
                 },
                 {
+                    showInLegend: legendCoins[3], 
                     type: "spline",
-                    dataPoints: data4
+                    dataPoints: data4,
+                    legendText: coinList[3],
                 },
                 {
+                    showInLegend: legendCoins[4], 
                     type: "spline",
-                    dataPoints: data5
+                    dataPoints: data5,
+                    legendText: coinList[4],
                 }
 
             ]
@@ -40,28 +87,33 @@ $(function() {
 
         chart.render();
 
-        updateCount = 0;
         var updateChart = function() {
 
-            updateCount++;
+            let updateCount = new Date().toLocaleTimeString();
+
 
             data1.push({
-                y: coinsWorth[0]
+                y: coinsWorthShow[0],
+                x: new Date()
             });
             data2.push({
-                y: coinsWorth[1]
+                y: coinsWorthShow[1],
+                x: new Date()
             });
             data3.push({
-                y: coinsWorth[2]
+                y: coinsWorthShow[2],
+                x: new Date()
             });
             data4.push({
-                y: coinsWorth[3]
+                y: coinsWorthShow[3],
+                x: new Date()
             });
             data5.push({
-                y: coinsWorth[4]
+                y: coinsWorthShow[4],
+                x: new Date()
             });
 
-            chart.options.title.text = "Update " + updateCount;
+            chart.options.title.text = "Crypto Chart "+priceVar + ' ' + updateCount;
             chart.render();
 
         };
@@ -89,25 +141,36 @@ $(function() {
     }
 
     $('#liveReports').click(() => {
-        // if (coinList.length === 0) {
-        //     alert('error')
-        // }
-        $('.coinContainer').empty();
-        $('.coinContainer').html('<div id="chartContainer" style="height: 300px; width: 100%;"></div>');
-        chart();
         let coinList = returnCoinList();
+        if (coinList.length === 0) {
+            Swal.fire({
+                title: 'Oops!',
+                text: "Please Select at least one coin to enter Charts!",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
+            return
+        }
+        $('.coinContainer').empty();
+        $('.coinContainer').html(`
+        <input id='togglerPriceUSDEUR' type="checkbox"  data-toggle="toggle" data-on="EUR" data-off="USD" data-style='ios'>
+        <div id="chartContainer" ></div>`);
+        $('input[type="checkbox"]').bootstrapToggle();
         getChart(coinList)
             .then(coinChart => {
                 let index = 0;
-                console.log(coinChart)
                 for (let coin in coinChart) {
                     const priceUSD = coinChart[coin].USD
                     const priceEUR = coinChart[coin].EUR
-                    coinsWorth.splice(index, 1, priceUSD)
+                    coinsWorthUSD.splice(index, 1, priceUSD)
+                    coinsWorthShow.splice(index, 1, priceUSD)
+                    coinsWorthEUR.splice(index, 1, priceEUR)
+                    
                     index++
-                    console.log(coinsWorth)
                 }
             })
+            chart();
+
     });
 
 });

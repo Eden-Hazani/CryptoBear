@@ -23,7 +23,6 @@ $(function() {
         })
     }
     window.returnCoinList = function() {
-        console.log(chosenCoins)
         return chosenCoins
     }
 
@@ -191,9 +190,8 @@ $(function() {
 
 
     // adds coins into array chosenCoins
-    $(document).on('click', '.toggle', function() {
+    $(document).on('click', '.coinBlock>.toggle, .modalToggleBox>.toggle', function() {
         const toggleId = $(this).children("input").attr("id").replace('toggler', '');
-        console.log('toogleid ' + toggleId)
         if ($(this).hasClass('off')) {
             if (chosenCoins.includes(toggleId)) {
                 const index = chosenCoins.indexOf(toggleId);
@@ -274,6 +272,7 @@ $(function() {
     });
 
     $(document).on('click', '#modalSaveButton', function() {
+        console.log(chosenCoins)
         displayChosenCoin()
         $('#insideModal').modal('hide');
 
@@ -286,7 +285,6 @@ $(function() {
         $(".coinBlock > .toggle").addClass("off");
         $(".coinBlock > .toggle>input").prop("checked", false);
         for (const chosenCoin of chosenCoins) {
-            console.log(chosenCoin);
             $(`.coinBlockOf${chosenCoin}>div`).removeClass("off");
         }
     }
@@ -295,7 +293,6 @@ $(function() {
     function displayChosenCoinHoemButton() {
         $(".coinBlock > .toggle>input").prop("checked", false);
         for (const chosenCoin of chosenCoins) {
-            console.log(chosenCoin);
             $(`.coinBlockOf${chosenCoin}>div>input`).prop("checked", true);
             $(`.coinBlockOf${chosenCoin}>div`).removeClass("off");
         }
