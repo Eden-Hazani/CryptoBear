@@ -26,6 +26,12 @@ $(function() {
         return chosenCoins
     }
 
+    $('body').mousemove(function(e) {
+        let moveX = (e.pageX * -1 / 15);
+        let moveY = (e.pageY * -1 / 15);
+        $('#layer').css('margin-left', moveX + 'px ')
+        $('#layer').css('margin-top', moveY + 'px ')
+    })
 
 
     // every new page load show all coins to user 
@@ -36,7 +42,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
+                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="zoom-in">
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -73,7 +79,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'  data-aos="zoom-in">
                             <h5 class='card-title'>${coinList[coin].name}</h5>
                             <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                             <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
