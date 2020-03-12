@@ -137,6 +137,24 @@ $(function() {
 
     });
 
+    // filter higest to lowest:
+    $(document).on('click', '#filterCoins',  function() {
+        let filterCoinHighToLow = [];
+        getCoins()
+            .then(coinList =>{
+                for(coin in coinList){
+                    if (coin < 100) {
+                        getMoreInfo(coinList[coin].id).then(info => {
+                            let coinWorth = info.market_data.current_price.usd;
+                            filterCoinHighToLow.push(coinWorth)
+                        });
+                    }
+                }
+      
+                console.log(filterCoinHighToLow)
+            })
+    });
+
     function setLocalWithExpiry(key, value, ttl) {
         const now = new Date()
             // `item` is an object which contains the original value
