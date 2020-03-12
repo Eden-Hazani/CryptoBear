@@ -5,7 +5,7 @@ body {
 }
 
 body{
-    background-image: url('/assets/images/homeBackGround.png');
+    background-image: url('../assets/images/homeBackGround.png');
     background-attachment: fixed;
 
 }
