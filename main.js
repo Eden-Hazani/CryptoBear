@@ -26,13 +26,7 @@ $(function() {
         return chosenCoins
     }
 
-    $('body').mousemove(function(e) {
-        let moveX = (e.pageX * -1 / 15);
-        let moveY = (e.pageY * -1 / 15);
-        $('#layer').css('margin-left', moveX + 'px ')
-        $('#layer').css('margin-top', moveY + 'px ')
-    })
-
+  
 
     // every new page load show all coins to user 
     $(document).ready(() => {

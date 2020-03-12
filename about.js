@@ -28,6 +28,10 @@ $(function() {
                     <img class='selfImage' src='/assets/images/Portrait.jpg'>
                 </div>
             </div>
+            <div class='col'>
+                <video autoplay loop src="/assets/images/dancingBears.mp4"></video>
+            </div>
+            </div>
            
             `
         );
