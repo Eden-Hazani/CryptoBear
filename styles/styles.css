@@ -4,14 +4,12 @@ body {
     margin: 0;
 }
 
-body{
+body {
     background-image: url('../assets/images/homeBackGround.png');
     background-attachment: fixed;
-
 }
 
-
-#layer{
+#layer {
     background-image: url('/assets/images/backgroundImage.jpg');
     width: 99%;
     height: 95vh;
@@ -19,44 +17,43 @@ body{
     overflow: hidden;
 }
 
-.selfImage{
+.selfImage {
     width: 320px;
     height: 400px;
     border-radius: 220px;
 }
 
-.colAboutInfo{
+.colAboutInfo {
     display: inline-block;
 }
 
-.infoTxt{
+.infoTxt {
     bottom: 110px;
     margin-right: 50px;
 }
 
-
-#chartContainer{
+#chartContainer {
     height: 700px;
     width: 100%;
 }
 
-.coinContainer>.toggle{
+.coinContainer>.toggle {
     margin-bottom: 15px;
 }
 
-.collapsedContent{
+.collapsedContent {
     background-color: rgba(255, 255, 255, 0.267);
 }
 
-
-.backgroundLayerVideo{
+.backgroundLayerVideo {
     right: 0;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
 }
 
-.coinBlock>h5,h6{
+.coinBlock>h5,
+h6 {
     color: rgb(9, 91, 158);
 }
 
@@ -66,7 +63,7 @@ body{
     height: 100vh;
     display: inline-block;
     margin: 10px;
-    width: 420px;
+    width: 300px;
     height: 300px;
 }
 
@@ -80,10 +77,12 @@ button {
 .coinBlock>h5 {
     display: inline-block;
 }
-.siteLogo>h1{
+
+.siteLogo>h1 {
     color: white;
 }
-.navbar{
+
+.navbar {
     background-color: rgba(255, 255, 255, 0.178);
     border-radius: 15px;
 }
@@ -102,7 +101,7 @@ h5 {
     font-size: 20px;
 }
 
-.coinBlock > .toggle {
+.coinBlock>.toggle {
     position: absolute;
     display: inline-block;
     right: 20px;
@@ -120,7 +119,7 @@ h5 {
 
 .collapsedContent {
     display: inline-block;
-    width: 350px;
+    width: 260px;
 }
 
 .collapsedContent>img {
@@ -133,15 +132,14 @@ h5 {
     position: absolute;
 }
 
-.modalToggleBox{
+.modalToggleBox {
     display: inline-block;
     margin: 10px;
-    width: 420px;
+    width: 320px;
     height: 120px;
 }
 
-.loaderGif{
+.loaderGif {
     width: 120px;
     height: 120px;
 }
-

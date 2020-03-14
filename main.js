@@ -14,19 +14,30 @@ $(function() {
         }
         // gets coin info by using argument
     window.getMoreInfo = function(coin) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: `https://api.coingecko.com/api/v3/coins/${coin}`,
+                    success: information => resolve(information),
+                    error: error => reject(error)
+                });
+            })
+        }
+        // get top coin lists
+    window.getTopCoins = function() {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: `https://api.coingecko.com/api/v3/coins/${coin}`,
-                success: information => resolve(information),
+                url: "https://min-api.cryptocompare.com/data/top/totaltoptiervolfull?limit=10&tsym=USD",
+                success: coinList => resolve(coinList),
                 error: error => reject(error)
             });
         })
     }
+
     window.returnCoinList = function() {
         return chosenCoins
     }
 
-  
+
 
     // every new page load show all coins to user 
     $(document).ready(() => {
@@ -137,23 +148,7 @@ $(function() {
 
     });
 
-    // filter higest to lowest:
-    $(document).on('click', '#filterCoins',  function() {
-        let filterCoinHighToLow = [];
-        getCoins()
-            .then(coinList =>{
-                for(coin in coinList){
-                    if (coin < 100) {
-                        getMoreInfo(coinList[coin].id).then(info => {
-                            let coinWorth = info.market_data.current_price.usd;
-                            filterCoinHighToLow.push(coinWorth)
-                        });
-                    }
-                }
-      
-                console.log(filterCoinHighToLow)
-            })
-    });
+
 
     function setLocalWithExpiry(key, value, ttl) {
         const now = new Date()
