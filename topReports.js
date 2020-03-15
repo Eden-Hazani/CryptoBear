@@ -1,7 +1,7 @@
 $(function() {
     let highCoinsWorth = [];
+    let highCoinsVolume = [];
     let highCoinsName = [];
-
 
     function highChart() {
         let chart = new CanvasJS.Chart("chartContainer", {
@@ -9,22 +9,22 @@ $(function() {
                 text: "Highest Coins"
             },
             axisY: {
-                title: "Price in USD"
+                title: "Volume"
             },
             data: [{
                 // Change type to "doughnut", "line", "splineArea", etc.
                 type: "column",
                 dataPoints: [
-                    { label: highCoinsName[0], y: highCoinsWorth[0] },
-                    { label: highCoinsName[1], y: highCoinsWorth[1] },
-                    { label: highCoinsName[2], y: highCoinsWorth[2] },
-                    { label: highCoinsName[3], y: highCoinsWorth[3] },
-                    { label: highCoinsName[4], y: highCoinsWorth[4] },
-                    { label: highCoinsName[5], y: highCoinsWorth[5] },
-                    { label: highCoinsName[6], y: highCoinsWorth[6] },
-                    { label: highCoinsName[7], y: highCoinsWorth[7] },
-                    { label: highCoinsName[8], y: highCoinsWorth[8] },
-                    { label: highCoinsName[9], y: highCoinsWorth[9] }
+                    { label: highCoinsName[0] + ` price USD: ${highCoinsWorth[0]} `, y: highCoinsVolume[0] },
+                    { label: highCoinsName[1] + ` price USD:${highCoinsWorth[1]} `, y: highCoinsVolume[1] },
+                    { label: highCoinsName[2] + ` price USD:${highCoinsWorth[2]} `, y: highCoinsVolume[2] },
+                    { label: highCoinsName[3] + ` price USD:${highCoinsWorth[3]} `, y: highCoinsVolume[3] },
+                    { label: highCoinsName[4] + ` price USD:${highCoinsWorth[4]} `, y: highCoinsVolume[4] },
+                    { label: highCoinsName[5] + ` price USD:${highCoinsWorth[5]} `, y: highCoinsVolume[5] },
+                    { label: highCoinsName[6] + ` price USD:${highCoinsWorth[6]} `, y: highCoinsVolume[6] },
+                    { label: highCoinsName[7] + ` price USD:${highCoinsWorth[7]} `, y: highCoinsVolume[7] },
+                    { label: highCoinsName[8] + ` price USD:${highCoinsWorth[8]} `, y: highCoinsVolume[8] },
+                    { label: highCoinsName[9] + ` price USD:${highCoinsWorth[9]} `, y: highCoinsVolume[9] }
                 ]
             }]
         });
@@ -32,16 +32,19 @@ $(function() {
     }
     // filter higest to lowest:
     $(document).on('click', '#filterCoins', function() {
+        highCoinsVolume = [];
+        highCoinsName = [];
+        highCoinsWorth = [];
         getTopCoins()
             .then(coinList => {
                 console.log(JSON.stringify(coinList))
                 for (coin in coinList.Data) {
-                    let worth = coinList.Data[coin].DISPLAY.USD.PRICE.replace('$', '').replace(',', '')
-                    highCoinsWorth.push(parseFloat(worth))
+                    let worth = coinList.Data[coin].RAW.USD.PRICE
+                    let volume = coinList.Data[coin].RAW.USD.TOTALTOPTIERVOLUME24HTO
+                    highCoinsVolume.push(parseInt(volume))
                     highCoinsName.push(coinList.Data[coin].CoinInfo.FullName)
+                    highCoinsWorth.push(worth)
                 }
-                console.log(highCoinsWorth)
-                console.log(highCoinsName)
                 $('.coinContainer').empty();
                 $('.coinContainer').html(`<div id="chartContainer"></div>`);
                 highChart()
