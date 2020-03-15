@@ -79,6 +79,11 @@ button {
     color: white;
 }
 
+.mainLoaderGif>h3 {
+    color: white;
+    text-shadow: 1px 2px black;
+}
+
 .navLinkText {
     margin-left: 5px;
     margin-right: 5px;
