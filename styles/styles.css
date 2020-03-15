@@ -87,6 +87,7 @@ button {
 .navLinkText {
     margin-left: 5px;
     margin-right: 5px;
+    margin-top: 4px;
     background-color: rgba(245, 245, 220, 0.164);
     padding: 7px;
     border-radius: 25px;
