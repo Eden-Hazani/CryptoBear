@@ -7,14 +7,7 @@ body {
 body {
     background-image: url('../assets/images/homeBackGround.png');
     background-attachment: fixed;
-}
-
-#layer {
-    background-image: url('/assets/images/backgroundImage.jpg');
-    width: 99%;
-    height: 95vh;
-    position: absolute;
-    overflow: hidden;
+    background-size: cover;
 }
 
 .selfImage {
