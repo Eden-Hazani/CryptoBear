@@ -61,7 +61,7 @@ h6 {
     height: 100vh;
     display: inline-block;
     margin: 10px;
-    width: 350px;
+    width: 300px;
     height: 300px;
 }
 
@@ -104,7 +104,7 @@ button {
 }
 
 h5 {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .nav-item>a {
