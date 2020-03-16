@@ -43,6 +43,10 @@ body {
     background-color: rgba(255, 255, 255, 0.267);
 }
 
+.dancingBears {
+    border-radius: 50px;
+}
+
 .backgroundLayerVideo {
     right: 0;
     bottom: 0;
@@ -57,7 +61,7 @@ h6 {
 
 .coinBlock {
     border: 2px white solid;
-    background-color: rgba(236, 217, 154, 0.89);
+    background-color: rgba(236, 214, 140, 0.74);
     height: 100vh;
     display: inline-block;
     margin: 10px;
@@ -153,4 +157,15 @@ h5 {
 .loaderGif {
     width: 120px;
     height: 120px;
+}
+
+.modal-body,
+.modal-header,
+.modal-footer,
+.modalToggleBox {
+    background-color: rgba(236, 214, 140, 0.74);
+}
+
+.modalToggleBox>lable {
+    margin-right: 25px;
 }

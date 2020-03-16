@@ -1,6 +1,6 @@
 $(function() {
 
-    $('#about').click(()=> { 
+    $('#about').click(() => {
         $('.coinContainer').empty();
         $('.coinContainer').html(
             `
@@ -29,7 +29,7 @@ $(function() {
                 </div>
             </div>
             <div class='col'>
-                <video autoplay loop src="/assets/images/dancingBears.mp4"></video>
+                <video class='dancingBears' autoplay loop src="/assets/images/dancingBears.mp4"></video>
             </div>
             </div>
            

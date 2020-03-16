@@ -47,7 +47,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="zoom-in">
+                            <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'>
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
                                 <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                                 <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -84,7 +84,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin < 100) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'  data-aos="zoom-in">
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'  >
                             <h5 class='card-title'>${coinList[coin].name}</h5>
                             <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                             <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>

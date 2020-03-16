@@ -6,7 +6,11 @@ $(function() {
     function highChart() {
         let chart = new CanvasJS.Chart("chartContainer", {
             title: {
-                text: "Highest Coins"
+                text: "Highest Coins By Volume"
+            },
+            legend: {
+                horizontalAlign: "left",
+                verticalAlign: "center",
             },
             axisY: {
                 title: "Volume",
@@ -46,7 +50,7 @@ $(function() {
                     let volume = coinList.Data[coin].RAW.USD.TOTALTOPTIERVOLUME24HTO
                     highCoinsVolume.push(parseInt(volume))
                     highCoinsName.push(coinList.Data[coin].CoinInfo.FullName)
-                    highCoinsWorth.push(worth)
+                    highCoinsWorth.push(Math.floor(worth))
                 }
                 $('.coinContainer').empty();
                 $('.coinContainer').html(`<div id="chartContainer"></div>`);
