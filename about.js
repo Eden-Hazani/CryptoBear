@@ -25,11 +25,11 @@ $(function() {
             </div>
             <div  class='col-4 colAboutInfo'>
                 <div class="selfImage">
-                    <img class='selfImage' src='/assets/images/Portrait.jpg'>
+                    <img class='selfImage' src='assets/images/Portrait.jpg'>
                 </div>
             </div>
             <div class='col'>
-                <video class='dancingBears' autoplay loop src="/assets/images/dancingBears.mp4"></video>
+                <video class='dancingBears' autoplay loop src="assets/images/dancingBears.mp4"></video>
             </div>
             </div>
            
