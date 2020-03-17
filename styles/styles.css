@@ -10,6 +10,11 @@ body {
     background-size: cover;
 }
 
+.currInfoCard {
+    overflow: auto;
+    height: 140px;
+}
+
 .col {
     padding-left: 15px;
     padding-right: 15px;
@@ -56,7 +61,8 @@ body {
 
 .coinBlock>h5,
 h6 {
-    color: rgb(9, 91, 158);
+    color: rgb(22, 103, 170);
+    text-shadow: 1px 1px 1px rgba(38, 38, 224, 0.452);
 }
 
 .coinBlock {
@@ -70,14 +76,28 @@ h6 {
 }
 
 .coinBlock>h5,
-h6,
-button {
+h6 {
     margin-left: 20px;
     margin-top: 20px;
 }
 
+button {
+    margin-left: 20px;
+    margin-top: 35px;
+}
+
 .coinBlock>h5 {
     display: inline-block;
+}
+
+.navLinkText:hover {
+    background-color: rgba(255, 201, 64, 0.24);
+    transition: .2s;
+}
+
+li>a:hover {
+    color: rgb(250, 209, 104);
+    text-decoration: none;
 }
 
 .siteLogo>h1 {
@@ -94,8 +114,9 @@ button {
     margin-right: 5px;
     margin-top: 4px;
     background-color: rgba(245, 245, 220, 0.164);
-    padding: 7px;
+    padding: 6px;
     border-radius: 25px;
+    transition: .2s;
 }
 
 .navbar {
@@ -119,8 +140,8 @@ h5 {
 .coinBlock>.toggle {
     position: absolute;
     display: inline-block;
-    right: 20px;
-    top: 20%;
+    right: 10%;
+    top: 18%;
 }
 
 .siteLogo>img {
@@ -168,4 +189,23 @@ h5 {
 
 .modalToggleBox>lable {
     margin-right: 25px;
+}
+
+.currInfoCard:-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+.currInfoCard::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.currInfoCard::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 194, 103);
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent)
+}
+
+*::selection {
+    background: rgb(255, 194, 103);
 }

@@ -89,6 +89,22 @@ $(function() {
         chart.render();
 
         var updateChart = function() {
+            getChart(coinList)
+                .then(coinChart => {
+                    let index = 0;
+                    console.log(coinChart)
+                    for (let coin in coinChart) {
+                        console.log(coin)
+                        const priceUSD = coinChart[coin].USD
+                        const priceEUR = coinChart[coin].EUR
+                        coinsWorthUSD.splice(index, 1, priceUSD)
+                        coinsWorthShow.splice(index, 1, priceUSD)
+                        coinsWorthEUR.splice(index, 1, priceEUR)
+                        console.log(index)
+                        index++
+                    }
+                })
+
 
             let updateCount = new Date().toLocaleTimeString();
 
