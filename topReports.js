@@ -6,7 +6,7 @@ $(function() {
     function highChart() {
         let chart = new CanvasJS.Chart("chartContainer", {
             title: {
-                text: "Highest Coins By Volume"
+                text: `Highest Coins By Volume As Of - ${new Date().toLocaleTimeString()}`
             },
             legend: {
                 horizontalAlign: "left",
@@ -44,7 +44,6 @@ $(function() {
         highCoinsWorth = [];
         getTopCoins()
             .then(coinList => {
-                console.log(JSON.stringify(coinList))
                 for (coin in coinList.Data) {
                     let worth = coinList.Data[coin].RAW.USD.PRICE
                     let volume = coinList.Data[coin].RAW.USD.TOTALTOPTIERVOLUME24HTO

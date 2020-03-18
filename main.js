@@ -2,7 +2,12 @@ $(function() {
     let chosenCoins = []
     let chosenCoinsModal = []
     let savedInfo = []
-        // Gets cryptocurr info from ajax call. 
+        // moving pages
+    let coinShowNext = 50;
+    let coinShowLast = -50;
+
+
+    // Gets cryptocurr info from ajax call. 
     window.getCoins = function() {
             return new Promise((resolve, reject) => {
                 $.ajax({
@@ -40,12 +45,19 @@ $(function() {
 
     // shows all coins on home click
     $('#homeLink').click(() => {
+        coinShowNext = 50;
+        coinShowLast = -50;
+        $('.coinContainer').empty();
+        showMainGif()
         getCoins()
             .then(coinList => {
-                $('.coinContainer').empty();
-                showMainGif()
+                $('.coinContainer').append(`
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                `);
                 for (coin in coinList) {
-                    if (coin < 100) {
+                    if (coin > coinShowLast && coin < coinShowNext) {
                         $('.coinContainer').append(`
                         <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
                                 <h5 class='card-title'>${coinList[coin].name}</h5>
@@ -65,6 +77,8 @@ $(function() {
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
                 }
+                coinShowLast = coinShowLast + 50;
+
             })
             .catch(error => Swal.fire({
                 title: 'Error!',
@@ -79,16 +93,119 @@ $(function() {
 
     });
 
+    // Next Page - moving in jumps of 50 
+    $(document).on('click', '#nextPage', function() {
+        coinShowNext = coinShowNext + 50;
+        coinShowLast = coinShowLast + 50;
+        console.log('next ' + coinShowNext)
+        console.log('last ' + coinShowLast)
+        $('.coinContainer').empty();
+        showMainGif()
+        getCoins()
+            .then(coinList => {
+                $('.coinContainer').empty();
+                $('.coinContainer').append(`
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                `);
+                for (coin in coinList) {
+                    if (coin > coinShowLast && coin < coinShowNext) {
+                        $('.coinContainer').append(`
+                    <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <h5 class='card-title'>${coinList[coin].name}</h5>
+                        <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                        <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                        <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">Currency info</button>
+                        <button id='aboutCoin${coinList[coin].id}' class='btn btn-primary aboutCoinButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">About Coin</button>
+                        <div class='absoluteCollapse'>
+                            <div class='collapse' id="collapseExample${coinList[coin].id}">
+                            <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
+                                <div class='collapseWrapper'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `);
+                    }
+                    $('input[type="checkbox"]').bootstrapToggle();
+                }
+            })
+            .catch(error => Swal.fire({
+                title: 'Error!',
+                text: 'Something Went Wrong',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }))
+            .finally(() => hideMainGif())
+    });
+
+
+    // Last Page - moving in jumps of 50 
+    $(document).on('click', '#lastPage', function() {
+        if (coinShowLast === -50) {
+            return
+        }
+        coinShowNext = coinShowNext - 50;
+        coinShowLast = coinShowLast - 50;
+        console.log('next ' + coinShowNext)
+        console.log('last ' + coinShowLast)
+        $('.coinContainer').empty();
+        showMainGif()
+        getCoins()
+            .then(coinList => {
+                $('.coinContainer').empty();
+                $('.coinContainer').append(`
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                `);
+                for (coin in coinList) {
+                    if (coin > coinShowLast && coin < coinShowNext) {
+                        $('.coinContainer').append(`
+                    <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <h5 class='card-title'>${coinList[coin].name}</h5>
+                        <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                        <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                        <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">Currency info</button>
+                        <button id='aboutCoin${coinList[coin].id}' class='btn btn-primary aboutCoinButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">About Coin</button>
+                        <div class='absoluteCollapse'>
+                            <div class='collapse' id="collapseExample${coinList[coin].id}">
+                            <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
+                                <div class='collapseWrapper'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `);
+                    }
+                    $('input[type="checkbox"]').bootstrapToggle();
+                }
+            })
+            .catch(error => Swal.fire({
+                title: 'Error!',
+                text: 'Something Went Wrong',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }))
+            .finally(() => hideMainGif())
+    });
+
 
     // every new page load show all coins to user 
     $(document).ready(() => {
         getCoins()
             .then(coinList => {
                 $('.coinContainer').empty();
+                $('.coinContainer').append(`
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                `);
                 for (coin in coinList) {
-                    if (coin < 100) {
+                    if (coin < coinShowNext) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
                             <h5 class='card-title'>${coinList[coin].name}</h5>
                             <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                             <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -106,6 +223,8 @@ $(function() {
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
                 }
+                coinShowLast = coinShowLast + 50;
+                console.log(coinShowLast)
             })
             .catch(error => Swal.fire({
                 title: 'Error!',
@@ -123,7 +242,6 @@ $(function() {
         try {
             showLoaderGif(trueId)
             const coinObj = await getMoreInfo(trueId);
-            console.log(JSON.stringify(coinObj))
             const infoContant = `
             <div class='collapsedContent card card-body currInfoCard'>
              Coin Description: 
@@ -250,7 +368,6 @@ $(function() {
                 return;
             }
             chosenCoins.push(toggleId)
-            console.log(chosenCoins)
         }
     });
 
@@ -310,7 +427,6 @@ $(function() {
     });
 
     $(document).on('click', '#modalSaveButton', function() {
-        console.log(chosenCoins)
         displayChosenCoin()
         $('#insideModal').modal('hide');
 
