@@ -143,7 +143,8 @@ $(function() {
 
     // Last Page - moving in jumps of 50 
     $(document).on('click', '#lastPage', function() {
-        if (coinShowLast === -50) {
+        console.log(coinShowLast)
+        if (coinShowLast === 0) {
             return
         }
         coinShowNext = coinShowNext - 50;
