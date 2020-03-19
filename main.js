@@ -59,20 +59,20 @@ $(function() {
                 for (coin in coinList) {
                     if (coin > coinShowLast && coin < coinShowNext) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
-                                <h5 class='card-title'>${coinList[coin].name}</h5>
-                                <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                                <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                                <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">Currency info</button>
-                                <button id='aboutCoin${coinList[coin].id}' class='btn btn-primary aboutCoinButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">About Coin</button>
-                                <div class='absoluteCollapse'>
-                                    <div class='collapse' id="collapseExample${coinList[coin].id}">
-                                    <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
-                                        <div class='collapseWrapper'>
-                                        </div>
-                                    </div>
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <h5 class='card-title'>${coinList[coin].name}</h5>
+                        <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                        <h6 class='card-subtitle'> ${coinList[coin].symbol}</h6>
+                        <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">Currency info</button>
+                        <button id='aboutCoin${coinList[coin].id}' class='btn btn-primary aboutCoinButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">About Coin</button>
+                        <div class='absoluteCollapse'>
+                            <div class='collapse' id="collapseExample${coinList[coin].id}">
+                            <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
+                                <div class='collapseWrapper'>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                         `);
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
@@ -164,7 +164,7 @@ $(function() {
                 for (coin in coinList) {
                     if (coin > coinShowLast && coin < coinShowNext) {
                         $('.coinContainer').append(`
-                    <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
                         <h5 class='card-title'>${coinList[coin].name}</h5>
                         <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                         <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -207,19 +207,19 @@ $(function() {
                     if (coin < coinShowNext) {
                         $('.coinContainer').append(`
                         <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
-                            <h5 class='card-title'>${coinList[coin].name}</h5>
-                            <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
-                            <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
-                            <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">Currency info</button>
-                            <button id='aboutCoin${coinList[coin].id}' class='btn btn-primary aboutCoinButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">About Coin</button>
-                            <div class='absoluteCollapse'>
-                                <div class='collapse' id="collapseExample${coinList[coin].id}">
-                                <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
-                                    <div class='collapseWrapper'>
-                                    </div>
+                        <h5 class='card-title'>${coinList[coin].name}</h5>
+                        <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
+                        <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
+                        <button id='${coinList[coin].id}' class='btn btn-primary moreInfoButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">Currency info</button>
+                        <button id='aboutCoin${coinList[coin].id}' class='btn btn-primary aboutCoinButton' data-toggle="collapse" data-target="#collapseExample${coinList[coin].id}" aria-expanded="false" aria-controls="collapseExample${coinList[coin].id}">About Coin</button>
+                        <div class='absoluteCollapse'>
+                            <div class='collapse' id="collapseExample${coinList[coin].id}">
+                            <img class ='loaderGif'  id="loaderGif${coinList[coin].id}" style="display:none" src="assets/images/bearLoadingGif.gif" />
+                                <div class='collapseWrapper'>
                                 </div>
                             </div>
                         </div>
+                    </div>
                         `);
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
