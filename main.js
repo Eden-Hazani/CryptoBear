@@ -2,7 +2,7 @@ $(function() {
     let chosenCoins = []
     let chosenCoinsModal = []
     let savedInfo = []
-        // moving pages
+        // moving pages with cards
     let coinShowNext = 50;
     let coinShowLast = -50;
     let pageNumber = 1;
