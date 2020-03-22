@@ -4,7 +4,15 @@ $(function() {
         $('.coinContainer').empty();
         $('.coinContainer').html(
             `
-            <div class='col-6 colAboutInfo infoTxt'>
+            <div class="col-11 mx-auto">
+                <div class="aboutMe card aboutSiteCard">
+                    <h5 class="card-title">Hi There! :)</h5>
+                    <div class="card-body">
+                        Welcome to CoinBear!, here you will be able to find everything you need to know about almost every Crypto Currency in the world! Just flip through the pages choose a CoinCard and hit the information buttons.<br><br> Good luck!
+                    </div>
+                </div>
+            </div>
+            <div class='col-sm-4 colAboutInfo infoTxt'>
                 <div class="aboutInfo card">
                 <div class="aboutMe card">
                     <h5 class="card-title">About Me</h5>
@@ -23,12 +31,12 @@ $(function() {
                 <div class="aboutProject"></div>
                 </div> 
             </div>
-            <div  class='col-4 colAboutInfo'>
+            <div  class='col-sm-4 colAboutInfo'>
                 <div class="selfImage">
                     <img class='selfImage' src='assets/images/Portrait.jpg'>
                 </div>
             </div>
-            <div class='col'>
+            <div class='col-sm-12'>
                 <video class='dancingBears' autoplay loop src="assets/images/dancingBears.mp4"></video>
             </div>
             </div>

@@ -5,6 +5,7 @@ $(function() {
         // moving pages
     let coinShowNext = 50;
     let coinShowLast = -50;
+    let pageNumber = 1;
 
 
     // Gets cryptocurr info from ajax call. 
@@ -47,19 +48,15 @@ $(function() {
     $('#homeLink').click(() => {
         coinShowNext = 50;
         coinShowLast = -50;
+        pageNumber = 1;
         $('.coinContainer').empty();
         showMainGif()
         getCoins()
             .then(coinList => {
-                $('.coinContainer').append(`
-                <button id="lastPage" class='btn btn-primary'>Last Page</button>
-                <button id="nextPage" class='btn btn-primary'>Next Page</button>
-                <hr>
-                `);
                 for (coin in coinList) {
                     if (coin > coinShowLast && coin < coinShowNext) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'>
                         <h5 class='card-title'>${coinList[coin].name}</h5>
                         <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                         <h6 class='card-subtitle'> ${coinList[coin].symbol}</h6>
@@ -77,6 +74,14 @@ $(function() {
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
                 }
+                $('.coinContainer').append(`
+                <hr>
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                <span>Page number: ${pageNumber}</span>
+                <hr>
+                `);
                 coinShowLast = coinShowLast + 50;
 
             })
@@ -97,6 +102,7 @@ $(function() {
     $(document).on('click', '#nextPage', function() {
         coinShowNext = coinShowNext + 50;
         coinShowLast = coinShowLast + 50;
+        pageNumber++
         console.log('next ' + coinShowNext)
         console.log('last ' + coinShowLast)
         $('.coinContainer').empty();
@@ -104,15 +110,10 @@ $(function() {
         getCoins()
             .then(coinList => {
                 $('.coinContainer').empty();
-                $('.coinContainer').append(`
-                <button id="lastPage" class='btn btn-primary'>Last Page</button>
-                <button id="nextPage" class='btn btn-primary'>Next Page</button>
-                <hr>
-                `);
                 for (coin in coinList) {
                     if (coin > coinShowLast && coin < coinShowNext) {
                         $('.coinContainer').append(`
-                    <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                    <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' >
                         <h5 class='card-title'>${coinList[coin].name}</h5>
                         <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                         <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -130,6 +131,14 @@ $(function() {
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
                 }
+                $('.coinContainer').append(`
+                <hr>
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                <span>Page number: ${pageNumber}</span>
+                <hr>
+                `);
             })
             .catch(error => Swal.fire({
                 title: 'Error!',
@@ -149,6 +158,7 @@ $(function() {
         }
         coinShowNext = coinShowNext - 50;
         coinShowLast = coinShowLast - 50;
+        pageNumber--
         console.log('next ' + coinShowNext)
         console.log('last ' + coinShowLast)
         $('.coinContainer').empty();
@@ -156,15 +166,10 @@ $(function() {
         getCoins()
             .then(coinList => {
                 $('.coinContainer').empty();
-                $('.coinContainer').append(`
-                <button id="lastPage" class='btn btn-primary'>Last Page</button>
-                <button id="nextPage" class='btn btn-primary'>Next Page</button>
-                <hr>
-                `);
                 for (coin in coinList) {
                     if (coin > coinShowLast && coin < coinShowNext) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'>
                         <h5 class='card-title'>${coinList[coin].name}</h5>
                         <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                         <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -182,6 +187,14 @@ $(function() {
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
                 }
+                $('.coinContainer').append(`
+                <hr>
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                <span>Page number: ${pageNumber}</span>
+                <hr>
+                `);
             })
             .catch(error => Swal.fire({
                 title: 'Error!',
@@ -198,15 +211,10 @@ $(function() {
         getCoins()
             .then(coinList => {
                 $('.coinContainer').empty();
-                $('.coinContainer').append(`
-                <button id="lastPage" class='btn btn-primary'>Last Page</button>
-                <button id="nextPage" class='btn btn-primary'>Next Page</button>
-                <hr>
-                `);
                 for (coin in coinList) {
                     if (coin < coinShowNext) {
                         $('.coinContainer').append(`
-                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}' data-aos="flip-up">
+                        <div class='coinBlock text-left card coinBlockOf${coinList[coin].symbol}'>
                         <h5 class='card-title'>${coinList[coin].name}</h5>
                         <input id='toggler${coinList[coin].symbol}' type="checkbox"  data-toggle="toggle" data-on="Selected" data-off="Select" data-style='ios'>
                         <h6 class='card-subtitle'>${coinList[coin].symbol}</h6>
@@ -224,6 +232,14 @@ $(function() {
                     }
                     $('input[type="checkbox"]').bootstrapToggle();
                 }
+                $('.coinContainer').append(`
+                <hr>
+                <button id="lastPage" class='btn btn-primary'>Last Page</button>
+                <button id="nextPage" class='btn btn-primary'>Next Page</button>
+                <hr>
+                <span>Page number: ${pageNumber}</span>
+                <hr>
+                `);
                 coinShowLast = coinShowLast + 50;
                 console.log(coinShowLast)
             })
